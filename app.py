@@ -11,6 +11,10 @@ app = Flask(__name__)
 
 page_frame = """<head></head><body>{body}</body>"""
 
+@app.route('/draw/big')
+def biggest():
+    return page_frame.format(body=3)
+
 @app.route('/draw/<int:num_draws>')
 def draw(num_draws):
     possible_outcomes = [3]*53 + [2]*67 + [1]*71 + [0]*56
@@ -22,7 +26,7 @@ def draw(num_draws):
 
 @app.route('/')
 def hello():
-    return 'Hello World!'
+    return page_frame.format(body='<a href="draw/1">Draw one?</a> <br/> <a href="draw/3">Draw three?</a> <br/> <a href="draw/big">Biggest draw is best draw?</a>')
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
